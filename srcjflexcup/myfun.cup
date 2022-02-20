@@ -1,0 +1,146 @@
+import java_cup.runtime.*;
+import java.util.*;
+import Node.*;
+import Node.ExpressionOp.*;
+import Node.StatementOp.*;
+
+parser code{:
+	Lexer lexer;
+	public MyFunparser(Lexer lexer){
+	    super(lexer);
+	    this.lexer = lexer;
+    }
+    :};
+
+ /* Terminals */
+ terminal MAIN, RETURN, OUT, VAR;
+ terminal SEMI, COMMA, ASSIGN, FUN;
+ terminal Integer NUMBER_INT, STRING, BOOL, REAL, INTEGER;
+ terminal IF, THEN, ELSE, WHILE, NOT, END, LOOP;
+ terminal TRUE, FALSE, NE, OUTPAR, STR_CONCAT;
+ terminal LPAR, RPAR, COLON, PLUS, MINUS, TIMES, DIV, GT, GE, LT, LE, EQ, AND, OR, POW, DIVINT;
+ terminal NULL, READ, WRITE, WRITELN, WRITEB, WRITET;
+ terminal String STRING_CONST, ID;
+ terminal Float NUMBER_REAL;
+
+ /* Non-terminals */
+ non terminal ProgramOp program;
+ non terminal MainOp main;
+ non terminal List<VarDeclOp> vardecllist;
+ non terminal List<FunOp> funlist;
+ non terminal VarDeclOp vardecl;
+ non terminal Integer type;
+ non terminal List<IdInitOp> idlistinit;
+ non terminal List<IdInitOp> idlistinitobbl;
+ non terminal ExpressionOp const;
+ non terminal FunOp fun;
+ non terminal List<ParDeclOp> paramdecllist;
+ non terminal List<ParDeclOp> nonemptyparamdecllist;
+ non terminal ParDeclOp pardecl;
+ non terminal List<StatementOp> statlist;
+ non terminal List<Identifier> idlist;
+ non terminal StatementOp stat;
+ non terminal IfStatOp ifstat;
+ non terminal WhileOp whilestat;
+ non terminal ReadOp readstat;
+ non terminal WriteOp writestat;
+ non terminal AssignOp assignstat;
+ non terminal ElseStatOp else;
+ non terminal CallFunOp callfun;
+ non terminal List<ExpressionOp> exprlist;
+ non terminal ExpressionOp expr;
+
+ /* Precedences */
+precedence nonassoc ELSE;
+precedence left LPAR, RPAR;
+precedence right POW;
+precedence left  TIMES, DIVINT, DIV, PLUS, MINUS, STR_CONCAT;
+precedence nonassoc EQ, NE, LT, LE, GT, GE;
+precedence right NOT;
+precedence left AND, OR;
+
+program ::= vardecllist:v1 funlist:f1 main:m  {: RESULT = new ProgramOp("ProgramNode",v1,f1, m); :};
+vardecllist ::=    /*empty*/         {: RESULT = new LinkedList<VarDeclOp>(); :}
+                  | vardecl:vd vardecllist:v1         {: v1.add(vd); RESULT = v1; :};
+main ::= MAIN vardecllist:v1 statlist:s1 END MAIN SEMI          {:RESULT = new MainOp("MainNode", new BodyOp("BodyNode", v1,s1)); :};
+funlist ::=  /*empty*/   {:  RESULT = new LinkedList<FunOp>();;  :}
+            | fun:fn funlist:f1       {: f1.add(fn); RESULT = f1; :};
+vardecl ::= type:t idlistinit:il SEMI         {: RESULT = new VarDeclOp("VarDeclOp", t, il); :}
+            | VAR idlistinitobbl:ilo SEMI     {: RESULT = new VarDeclOp("VarDeclOp", ilo);  :};
+type ::= INTEGER      {: RESULT = Token.INTEGER; :}
+        | BOOL        {: RESULT = Token.BOOL; :}
+        | REAL        {: RESULT = Token.REAL; :}
+        | STRING     {: RESULT = Token.STRING; :};
+idlistinit ::= ID:i         {: List<IdInitOp> idl = new LinkedList<IdInitOp>(); idl.add(new IdInitOp ("IdListNode", new Identifier ("ID", i))); RESULT = idl; :}
+            | idlistinit:il COMMA ID:i      {: il.add(new IdInitOp ("IdListNode", new Identifier ("ID", i))); RESULT = il; :}
+            | ID:i ASSIGN expr:e            {: List<IdInitOp> idl = new LinkedList<IdInitOp>(); idl.add(new IdInitOp ("IdListNode", new Identifier ("ID", i), e)); RESULT = idl; :}
+            | idlistinit:il COMMA ID:i ASSIGN expr:e     {: il.add(new IdInitOp ("IdListNode", new Identifier ("ID", i), e)); RESULT = il;  :};
+idlistinitobbl ::= ID:i ASSIGN const:e	        {: List<IdInitOp> idl = new LinkedList<IdInitOp>(); idl.add(new IdInitOp ("IdListNode", new Identifier ("ID", i), e)); RESULT = idl; :}
+                | idlistinitobbl:ilo COMMA ID:i ASSIGN  const:e {: ilo.add(new IdInitOp ("IdListNode", new Identifier ("ID", i), e)); RESULT = ilo;  :};
+const ::=   TRUE:b              {: RESULT = new BooleanEx("BoolConst", true); :}
+          	| FALSE:b           {: RESULT = new BooleanEx("BoolConst", false); :}
+          	| NUMBER_INT:ni     {: RESULT = new IntegerEx("NumberInt", ni); :}
+          	| NUMBER_REAL:nr    {: RESULT = new RealEx("NumberReal", nr); :}
+          	| STRING_CONST:sc   {: RESULT = new StringEx("StringConst", sc);  :};
+fun ::= FUN ID:i LPAR paramdecllist:pdl RPAR COLON type:t vardecllist:v1 statlist:s1 END FUN SEMI       {: FunOp f = new FunOp("FunOpNode", new Identifier ("ID", i), pdl, t, new BodyOp("BodyNode", v1,s1));  RESULT = f; :}
+        | FUN ID:i LPAR paramdecllist:pdl RPAR vardecllist:v1 statlist:s1 END FUN SEMI             {: FunOp f = new FunOp("FunOpNode", new Identifier ("ID", i), pdl, new BodyOp("BodyNode", v1,s1));  RESULT = f; :};
+paramdecllist ::= /*empty */        {: RESULT = new LinkedList<ParDeclOp>();;  :}
+                | nonemptyparamdecllist:npdl   {: RESULT = npdl; :};
+nonemptyparamdecllist ::= pardecl:pd        {: List<ParDeclOp> pl = new LinkedList<ParDeclOp>(); pl.add(pd); RESULT = pl; :}
+                        | nonemptyparamdecllist:npdl COMMA pardecl:pd    {: npdl.add(pd); RESULT = npdl; :};
+pardecl ::= type:t ID:i             {: RESULT = new ParDeclOp ("ID", 0, t, new Identifier("ID", i)); :}
+            | OUT type:t ID:i       {: RESULT = new ParDeclOp ("ID", 1, t, new Identifier("ID", i)); :};
+statlist ::=    /*empty*/       {: RESULT = new LinkedList<StatementOp>();; :}
+            | stat:st statlist:stl     {: stl.add(st); RESULT = stl; :};
+idlist ::= ID:i            {: List<Identifier> idl = new LinkedList<Identifier>(); idl.add (new Identifier("ID", i)); RESULT = idl; :}
+            | idlist:il COMMA ID:i          {: il.add (new Identifier("ID", i)); RESULT = il;  :};
+stat ::= ifstat:ifs SEMI              {: RESULT = ifs; :}
+	    | whilestat:ws SEMI           {: RESULT = ws; :}
+	    | readstat:rs SEMI            {: RESULT = rs; :}
+	    | writestat:wrs SEMI          {: RESULT = wrs; :}
+	    | assignstat:as SEMI          {: RESULT = as; :}
+	    | callfun:cfs SEMI            {: RESULT = cfs; :}
+	    | RETURN expr:es SEMI         {: RESULT = new ReturnOp("ExNode",es); :};
+ifstat ::= IF expr:e THEN vardecllist:v1 statlist:s1 else:el END IF    {: RESULT = new IfStatOp("IfNode",e, new BodyOp ("BodyNode", v1, s1), el); :};
+else ::= /* empty */    {: RESULT = null; :}
+        | ELSE vardecllist:v1 statlist:s1     {: RESULT = new ElseStatOp("ElseNode", new BodyOp ("BodyNode", v1, s1)); :};
+whilestat ::= WHILE expr:e LOOP vardecllist:v1 statlist:s1 END LOOP      {: RESULT = new WhileOp("WhileNode", e, new BodyOp ("BodyNode", v1, s1)); :};
+readstat ::= READ idlist:idl expr:e      {: RESULT = new ReadOp ("ReadNode",idl,e); :}
+	        | READ idlist:idl            {: RESULT = new ReadOp ("ReadNode",idl);:};
+writestat ::=  WRITE  expr:e             {: RESULT = new WriteOp ("WriteNode", 0, e); :}
+	        | WRITELN  expr:e            {: RESULT = new WriteOp ("WriteNode", 1, e); :}
+	        | WRITET  expr:e             {: RESULT = new WriteOp ("WriteNode", 2, e); :}
+	        | WRITEB  expr:e             {: RESULT = new WriteOp ("WriteNode", 3, e); :};
+assignstat ::=  ID:i ASSIGN expr:e       {: RESULT = new AssignOp ("AssignNode", new Identifier ("ID", i), e); :};
+callfun ::= ID:i LPAR exprlist:e RPAR       {: RESULT = new CallFunOp("CallNode", new Identifier ("ID", i), e); :}
+	        | ID:i LPAR RPAR           {:  RESULT = new CallFunOp("CallNode", new Identifier ("ID", i)); :};
+exprlist ::= expr:e         {: List<ExpressionOp> el = new LinkedList<ExpressionOp>(); el.add(e); RESULT = el;  :}
+	        | expr:e COMMA exprlist:els      {: els.add(e); RESULT = els; :}
+	        | OUTPAR ID:i                    {: List<ExpressionOp> el = new LinkedList<ExpressionOp>(); OutparOp e = new OutparOp("OutparNode", new Identifier("ID", i)); el.add(e); RESULT = el; :}
+	        | OUTPAR ID:i COMMA exprlist:els     {: OutparOp e = new OutparOp("OutparNode", new Identifier("ID", i)); els.add(e); RESULT = els; :};
+expr ::= TRUE:b   {: RESULT = new BooleanEx("BoolConst", true); :}
+	| FALSE:b     {: RESULT = new BooleanEx("BoolConst", false); :}
+	| NUMBER_INT:ni    {: RESULT = new IntegerEx("NumberInt", ni);  :}
+	| NUMBER_REAL:nr   {: RESULT = new RealEx("NumberReal", nr); :}
+	| STRING_CONST:sc  {: RESULT = new StringEx("StringConst", sc);   :}
+	| ID:i             {: RESULT = new Identifier ("ID", i); :}
+	| expr:e  PLUS expr:e2       {: RESULT = new MultiOp("plus",Token.PLUS, e,e2); :}
+	| expr:e  MINUS expr:e2     {: RESULT = new MultiOp("minus",Token.MINUS, e,e2); :}
+	| expr:e  TIMES expr:e2     {: RESULT = new MultiOp("times",Token.TIMES, e,e2); :}
+	| expr:e  DIV expr:e2       {: RESULT = new MultiOp("div",Token.DIV, e,e2); :}
+	| expr:e  DIVINT expr:e2        {: RESULT = new MultiOp("divint",Token.DIVINT, e,e2); :}
+	| expr:e   AND expr:e2      {: RESULT = new MultiOp("and",Token.AND, e,e2); :}
+	| expr:e  POW expr:e2       {: RESULT = new MultiOp("pow",Token.POW, e,e2); :}
+	| expr:e  STR_CONCAT expr:e2        {: RESULT = new MultiOp("strconcat",Token.STR_CONCAT, e,e2); :}
+	| expr:e   OR expr:e2       {: RESULT = new MultiOp("or",Token.OR, e,e2); :}
+	| expr:e   GT expr:e2       {: RESULT = new MultiOp("gt",Token.GT, e,e2); :}
+	| expr:e   GE expr:e2       {: RESULT = new MultiOp("ge",Token.GE, e,e2); :}
+	| expr:e   LT expr:e2       {: RESULT = new MultiOp("lt",Token.LT, e,e2); :}
+	| expr:e   LE expr:e2       {: RESULT = new MultiOp("le",Token.LE, e,e2); :}
+	| expr:e   EQ expr:e2       {: RESULT = new MultiOp("eq",Token.EQ, e,e2); :}
+	| expr:e   NE expr:e2       {: RESULT = new MultiOp("ne",Token.NE, e,e2); :}
+	| MINUS expr:e      {: RESULT = new SingOp("minus", Token.MINUS, e); :}
+	| NOT expr:e        {: RESULT = new SingOp("not", Token.NOT, e); :}
+	| LPAR expr:e  RPAR     {: RESULT = new SingOp("exp", 0, e); :}
+	| NULL:n      {: RESULT = new NullOp ("null"); :}
+	| callfun:cfs {: RESULT = new CallfunEx("callfunex", cfs); :};

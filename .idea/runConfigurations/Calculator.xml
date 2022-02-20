@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Calculator" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="Calculator" />
+    <module name="epifania_es5_scg" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

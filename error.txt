@@ -1,0 +1,21 @@
+main
+
+    char a := 'b';
+    var b := 'a';
+
+    integer result := 0;
+    bool flag := false;
+
+    # Test sulle operazione non permesse
+     result := a - b; # Operator '-' cannot be applied to 'char', 'char'.
+    # result := a / b; # Operator '/' cannot be applied to 'char', 'char'.
+    # result := a div b; # Operator 'div' cannot be applied to 'char', 'char'.
+    # result := a ^ b; # Operator '^' cannot be applied to 'char', 'char'.
+    # ?. a; # Operator '?.' cannot be applied to 'char'.
+    # a := "c"; # Type Mismatch for lexeme: 'a'. Required type: 'char', provided: 'string'.
+    # a := 1; # Type Mismatch for lexeme: 'a'. Required type: 'char', provided: 'integer'.
+    # a := 1.1; # Type Mismatch for lexeme: 'a'. Required type: 'char', provided: 'real'.
+    # a := true; # Type Mismatch for lexeme: 'a'. Required type: 'char', provided: 'bool'.
+    # flag := a > "ciao"; # Operator '>' cannot be applied to 'char', 'string'.
+
+end main;
