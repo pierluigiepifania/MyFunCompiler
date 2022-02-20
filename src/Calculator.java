@@ -4,7 +4,6 @@ import Visitor.NodeVisitor;
 import Visitor.SemanticVisitor;
 import java_cup.runtime.Symbol;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -16,8 +15,9 @@ public class Calculator {
         Path inputPath = Paths.get(args[0]);
         String inputFileName = inputPath.getFileName().toString(); //prendo il nome del file
         int dotIndex = inputFileName.lastIndexOf(".");
-        String cFileName = (dotIndex == -1 ? inputFileName : inputFileName.substring(0, dotIndex)); //rimuovo estensione
-        String coutdir = "test_files/c_out";
+        String cFileName = (dotIndex == -1 ? inputFileName : inputFileName.substring(0, dotIndex) + ".c"); //rimuovo estensione
+        String coutdir = "test_files/c_out/";
+        String tmp = coutdir + cFileName.toString();
 
         System.out.println("Avvio calcolatrice in corso ... \n");
         try {
@@ -35,7 +35,7 @@ public class Calculator {
             SemanticVisitor semanticVisitor = new SemanticVisitor();
             root.accept(semanticVisitor);
 
-            MyFunCVisitor toCVisitor = new MyFunCVisitor(coutdir + File.separator + cFileName);
+            MyFunCVisitor toCVisitor = new MyFunCVisitor(tmp);
             root.accept(toCVisitor);
             toCVisitor.flush();
 

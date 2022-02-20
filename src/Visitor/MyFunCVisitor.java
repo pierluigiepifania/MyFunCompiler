@@ -28,7 +28,7 @@ public class MyFunCVisitor implements Visitor {
         recursive_fun = new LinkedList<>();
         pointer = new LinkedList<>();
         try {
-            printer = new PrintWriter(file + ".c");
+            printer = new PrintWriter(file);
             printer.println("#include <stdlib.h>");
             printer.println("#include <stdio.h>");
             printer.println("#include <string.h>");

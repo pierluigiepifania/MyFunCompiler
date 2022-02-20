@@ -2,7 +2,7 @@
   <configuration default="false" name="Calculator" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="Calculator" />
     <module name="epifania_es5_scg" />
-    <option name="PROGRAM_PARAMETERS" value="test_files\input.txt" />
+    <option name="PROGRAM_PARAMETERS" value="valid1.txt" />
     <method v="2">
       <option name="Make" enabled="true" />
     </method>
