@@ -1,0 +1,72 @@
+integer sceltaop, tipoop, num1, num2, ri;
+real rnum1, rnum2, rr;
+
+fun opInt ( integer num1, integer num2, integer tipoop) : integer
+integer result;
+if tipoop = 1 then
+result := num1 + num2;
+end if;
+if tipoop = 2 then
+result := num1 - num2;
+end if;
+if tipoop = 3 then
+result := num1 * num2;
+end if;
+if tipoop = 4 then
+result := num1 / num2;
+end if;
+return result;
+end fun;
+
+fun opReal ( real rnum1, real rnum2, integer tipoop) : real
+real result;
+if tipoop = 1 then
+result := rnum1 + rnum2;
+end if;
+if tipoop = 2 then
+result := rnum1 - rnum2;
+end if;
+if tipoop = 3 then
+result := rnum1 * rnum2;
+end if;
+if tipoop = 4 then
+result := rnum1 / rnum2;
+end if;
+return result;
+end fun;
+
+main
+integer c := 1;
+integer result;
+real res;
+while c = 1 loop
+? ("Scegli l'operazione:");
+? ("1 addizione");
+? ("2 sottrazione");
+? ("3 moltiplicazione");
+? ("4 divisione");
+%sceltaop;
+? ("Scegli il tipo:");
+? ("5 integer");
+? ("6 real");
+%tipoop;
+if tipoop = 5 then
+? ("Inserisci il primo numero");
+%num1;
+? ("Inserisci il secondo numero");
+%num2;
+result := opInt (num1, num2, sceltaop);
+? ("Il risultato è " &result);
+end if;
+if tipoop = 6 then
+? ("Inserisci il primo numero");
+%rnum1;
+? ("Inserisci il secondo numero");
+%rnum2;
+res := opReal (rnum1, rnum2, sceltaop);
+? ("Il risultato è " & res);
+end if;
+? ("Digita 1 per continuare o 0 per terminare");
+%c;
+end loop;
+end main;
