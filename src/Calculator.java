@@ -4,44 +4,41 @@ import Visitor.NodeVisitor;
 import Visitor.SemanticVisitor;
 import java_cup.runtime.Symbol;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class Calculator {
 
     public static void main(String[] args) throws Exception {
-        String filePath = "valid2.txt";
 
-        // TESTER LEXER
-        /*
-        FileReader input = new FileReader(filePath);
-        Lexer lexer = new Lexer(input);
-        Symbol sym;
+        Path inputPath = Paths.get(args[0]);
+        String inputFileName = inputPath.getFileName().toString(); //prendo il nome del file
+        int dotIndex = inputFileName.lastIndexOf(".");
+        String cFileName = (dotIndex == -1 ? inputFileName : inputFileName.substring(0, dotIndex)); //rimuovo estensione
+        String coutdir = "test_files/c_out";
 
-        while (((sym = lexer.next_token()).sym) != Token.EOF) {
-
-            System.out.println("<" + sym.sym + ", '" + sym.value + "'>");
-
-        }
-        */
-
-        // TESTER CUP
-        FileReader input = new FileReader(filePath);
         System.out.println("Avvio calcolatrice in corso ... \n");
         try {
-            BufferedReader in = new BufferedReader(new FileReader(filePath));
+            BufferedReader in = new BufferedReader(new FileReader(inputPath.toString()));
             Lexer lexer = new Lexer(in);
             Symbol sym;
             MyFunparser parser = new MyFunparser(lexer);
             sym = parser.parse();
             ProgramOp root = (ProgramOp) sym.value;
-            NodeVisitor v = new NodeVisitor("output2");
+
+            NodeVisitor v = new NodeVisitor("Visitor");
             root.accept(v);
             v.flush();
+
             SemanticVisitor semanticVisitor = new SemanticVisitor();
             root.accept(semanticVisitor);
-            MyFunCVisitor toCVisitor = new MyFunCVisitor("toC");
+
+            MyFunCVisitor toCVisitor = new MyFunCVisitor(coutdir + File.separator + cFileName);
             root.accept(toCVisitor);
             toCVisitor.flush();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -51,7 +48,5 @@ public class Calculator {
 
 //C:\jflex-1.8.2\bin\jflex -d src srcjflexcup\Lexer.flex
 //java -jar C:\CUP\java-cup-11b.jar -parser MyFunparser -symbols Token -destdir src srcjflexcup/myfun.cup
-//java -jar C:\CUP\java-cup-11b.jar -dump -destdir src srcjflexcup/myfun.cup 2> dumpfile
 //NOTA: In myfunparser per NUMBER_INT in expr: Integer.parseInt((String)((java_cup.runtime.Symbol) CUP$MyFunparser$stack.peek()).value);
 //NOTA: In myfunparser per NUMBER_INT in stat: Integer.parseInt((String)((java_cup.runtime.Symbol) CUP$MyFunparser$stack.peek()).value);
-//NOTA: Copiare token in symboltable
