@@ -9,7 +9,7 @@
 var c := 1;
 
 
-# fa somma e restituisce anche la taglia del numero, oltre che il risultato
+#* fa somma e restituisce anche la taglia del numero, oltre che il risultato#
 fun sommac(integer a, real b): real
 
 	real result;
@@ -28,7 +28,7 @@ fun sommac(integer a, real b): real
 
 end fun;
 
-# stampa il messaggio dopo 4 ritorni a capo
+#* stampa il messaggio dopo 4 ritorni a capo#
 fun stampa(string messaggio)
 
 	var i := 1;
@@ -42,7 +42,7 @@ fun stampa(string messaggio)
 
 end fun;
 
-#programma main
+#*programma main#
 main
 	var a := 1, b := 2.2;
 	string taglia;

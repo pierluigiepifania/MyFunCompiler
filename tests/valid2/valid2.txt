@@ -18,7 +18,7 @@ fun do_sum()
     % op1 'Inserisci il primo operando: ';
     % op2 'Inserisci il secondo operando: ';
     ?. '';
-    ?. 'La somma tra ' & op1 & ' e ' & op2 & ' vale ' & op1 + op2;
+    ?. 'La somma tra ' & op1 & ' e ' & op2 & ' vale ' & (op1 + op2);
 end fun;
 
 fun do_mul()
@@ -27,7 +27,7 @@ fun do_mul()
     % op1 '\nInserisci il primo operando: ';
     % op2 'Inserisci il secondo operando: ';
     ?. '';
-    ?. 'La moltiplicazione tra ' & op1 & ' e ' & op2 & ' vale ' & op1 * op2;
+    ?. 'La moltiplicazione tra ' & op1 & ' e ' & op2 & ' vale ' & (op1 * op2);
 end fun;
 
 fun do_div_int()
@@ -36,16 +36,16 @@ fun do_div_int()
     % op1 '\nInserisci il primo operando: ';
     % op2 'Inserisci il secondo operando: ';
     ?. '';
-    ?. 'La divisione intera tra ' & op1 & ' e ' & op2 & ' vale ' & op1 div op2;
+    ?. 'La divisione intera tra ' & op1 & ' e ' & op2 & ' vale ' & (op1 / op2);
 end fun;
 
 fun do_pow()
-    real op1, op2;
+    integer op1, op2;
     ?. '\n(4) POTENZA';
     % op1 '\nInserisci la base: ';
     % op2 "Inserisci l'esponente: ";
     ?. '';
-    ?. 'La potenza di ' & op1 & ' elevato a ' & op2 & ' vale ' & op1 ^ op2;
+    ?. 'La potenza di ' & op1 & ' elevato a ' & op2 & ' vale ' & (op1 ^ op2);
 end fun;
 
 fun recursive_fib(integer n): integer

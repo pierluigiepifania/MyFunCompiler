@@ -242,7 +242,7 @@ public class SemanticVisitor implements Visitor {
         n.exOp2.accept(this);
         Integer type = TypeCheck.checkType(n.exop, n.exOp1.getType(), n.exOp2.getType());
         if (type == -1)
-            throw new Exception("Operator type error");
+            throw new Exception("Operator type error" + n.exop);
         n.addType(type);
         return null;
     }
