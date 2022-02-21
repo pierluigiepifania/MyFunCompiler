@@ -13,7 +13,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class Calculator {
-
     public static void main(String[] args) throws Exception {
 
         Path inputPath = Paths.get(args[0]);
