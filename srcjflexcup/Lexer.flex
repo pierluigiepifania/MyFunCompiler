@@ -97,9 +97,8 @@ str_concat = "&"
 	{double_const} { return symbol(Token.NUMBER_REAL, yytext()); }
 	\"{string}\" {return symbol(Token.STRING_CONST, yytext());}
 	\"{string} {error("stringa non chiusa");}
-	\'{string}\' {return symbol(Token.STRING_CONST, yytext());}
-    "#".* {}
-    "#*"[^*]*[*]+([^*/][^*]*[*]+)*"#"  {}
+	[']([^'\\\n]|\\(.|\n))*['] {return symbol(Token.STRING_CONST, yytext());}
+    "#*" [^*] ~"#" | "#" "*"+ "#" {}
     "#*" {error ("commento non chiuso");}
 
 	/* separators */

@@ -817,7 +817,7 @@ class CUP$MyFunparser$actions {
               ExpressionOp RESULT =null;
 		int nrleft = ((java_cup.runtime.Symbol)CUP$MyFunparser$stack.peek()).left;
 		int nrright = ((java_cup.runtime.Symbol)CUP$MyFunparser$stack.peek()).right;
-		Float nr = (Float)((java_cup.runtime.Symbol) CUP$MyFunparser$stack.peek()).value;
+		Float nr = Float.parseFloat((String)((java_cup.runtime.Symbol) CUP$MyFunparser$stack.peek()).value);
 		 RESULT = new RealEx("NumberReal", nr); 
               CUP$MyFunparser$result = parser.getSymbolFactory().newSymbol("const",8, ((java_cup.runtime.Symbol)CUP$MyFunparser$stack.peek()), ((java_cup.runtime.Symbol)CUP$MyFunparser$stack.peek()), RESULT);
             }
@@ -1369,7 +1369,7 @@ class CUP$MyFunparser$actions {
               ExpressionOp RESULT =null;
 		int nrleft = ((java_cup.runtime.Symbol)CUP$MyFunparser$stack.peek()).left;
 		int nrright = ((java_cup.runtime.Symbol)CUP$MyFunparser$stack.peek()).right;
-		Float nr = (Float)((java_cup.runtime.Symbol) CUP$MyFunparser$stack.peek()).value;
+		Float nr = Float.parseFloat((String)((java_cup.runtime.Symbol) CUP$MyFunparser$stack.peek()).value);
 		 RESULT = new RealEx("NumberReal", nr); 
               CUP$MyFunparser$result = parser.getSymbolFactory().newSymbol("expr",24, ((java_cup.runtime.Symbol)CUP$MyFunparser$stack.peek()), ((java_cup.runtime.Symbol)CUP$MyFunparser$stack.peek()), RESULT);
             }

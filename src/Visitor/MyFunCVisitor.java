@@ -22,6 +22,7 @@ public class MyFunCVisitor implements Visitor {
     public final int STRING_SIZE = 101; //spazio allocato dalle malloc
     public List<String> pointer; //utilizzato per tener traccia dei puntatori durante il passaggio di essi alle funzioni
     public boolean assignstat = false; //per distinguere le stringhe a cui va allocata memoria da quelle a cui viene assegnato un valore
+    public boolean concat_in_callfun = false;
 
     public MyFunCVisitor(String file) {
         printParameter = new LinkedList<>();
@@ -106,11 +107,11 @@ public class MyFunCVisitor implements Visitor {
                 assignstat = false; //reimposto il flag
             }
         } else {  //se è un var aspetto di ricevere il tipo
-            printer.print(MyFunC.typeConverter(n.idInitOp.get(0).getType()));
             for (int i = 0; i < n.idInitOp.size(); i++) {
+                printer.print(MyFunC.typeConverter(n.idInitOp.get(i).getType()));
                 n.idInitOp.get(i).accept(this);
                 if (i != n.idInitOp.size() - 1)
-                    addComma();
+                    addSemiColon();
             }
         }
         addSemiColon();
@@ -133,9 +134,9 @@ public class MyFunCVisitor implements Visitor {
     }
 
     public Object visit(Identifier n) throws Exception {
-        printer.print(n.value);
         if (!printParameter.contains(n.value))    //se devo stampare dei valori, li raccolgo singolarmente
             printParameter.add(n.value);
+        printer.print(n.value);
         return null;
     }
 
@@ -168,7 +169,6 @@ public class MyFunCVisitor implements Visitor {
         printer.print(MyFunC.typeConverter(n.type));
         if (n.inOut == 1) {   //controllo se è un outpar, gestiti tramite puntatori a cui aggiungo l'operatore *
             pointer.add(n.id.value);
-            printer.print("*");
         }
         n.id.accept(this);
         return null;
@@ -242,7 +242,7 @@ public class MyFunCVisitor implements Visitor {
         if (n.id.getType() == Token.STRING) {  //sto assegnando ad una stringa imposto un flag
             assignString = true;
         }
-        if (pointer.contains(n.id.value))   //se si tratta di un puntatore ricevuto tramite outpar aggiungo l'operatore *
+        if (pointer.contains(n.id.value) && n.exOp.getType() != Token.STRING)   //se si tratta di un puntatore ricevuto tramite outpar aggiungo l'operatore *
             printer.print("*");
         n.id.accept(this);
         addAssign();
@@ -327,6 +327,7 @@ public class MyFunCVisitor implements Visitor {
 
     public Object visit(CallFunOp n) throws Exception {
         n.isFunction = true;
+        concat_in_callfun = true;
         n.id.accept(this);
         addLpar();
         if (n.exOpList != null) {
@@ -337,6 +338,7 @@ public class MyFunCVisitor implements Visitor {
             }
         }
         addRpar();
+        concat_in_callfun = false;
         return null;
     }
 
@@ -350,27 +352,29 @@ public class MyFunCVisitor implements Visitor {
             printer.print(" :" + MyFunC.getPlaceholder(n.exOp.getType()));
         }
         addQuotes();
+        System.out.println(printParameter.size());
         if (!printParameter.isEmpty()) {  //aggiungo i parametri alla printf
             addComma();
             printWriteParam();
         }
         addRpar();
-        if (n.typeWrite == 1)
-            addNL();
-        if (n.typeWrite == 2)
-            printer.print("\t");
         printParameter.clear();  //svuoto la lista
         return null;
     }
 
     public Object visit(MultiOp n) throws Exception {
         typePrintOperation = n.exop;
-        if (typePrintOperation == Token.STR_CONCAT && assignString) {  //concatenazione di stringhe per l'assegnazione
+        if (typePrintOperation == Token.STR_CONCAT && (assignString || concat_in_callfun)) {  //concatenazione di stringhe per l'assegnazione
             i_m_string = true;
             printer.print("strcat");
             addLpar();
-            if (n.exOp1.getType() == Token.INTEGER) {  //se è un intero lo trasformo in una stringa
+            if (n.exOp1.getType() == Token.INTEGER) {  //se è un intero lo trasformo in una stringa puntatore
                 printer.print("convert");
+                addLpar();
+                n.exOp1.accept(this);
+                addRpar();
+            } else if (n.exOp1.getType() == Token.REAL) {  //se è un float lo trasformo in una stringa puntatore
+                printer.print("convertF");
                 addLpar();
                 n.exOp1.accept(this);
                 addRpar();
@@ -387,6 +391,11 @@ public class MyFunCVisitor implements Visitor {
                 addLpar();
                 n.exOp2.accept(this);
                 addRpar();
+            } else if (n.exOp2.getType() == Token.REAL) {
+                printer.print("convertF");
+                addLpar();
+                n.exOp2.accept(this);
+                addRpar();
             } else if (n.exOp2.getType() == Token.STRING) {
                 printer.print("convertS");
                 addLpar();
@@ -396,6 +405,7 @@ public class MyFunCVisitor implements Visitor {
                 n.exOp2.accept(this);
             addRpar();
             assignString = false;
+            concat_in_callfun = false;
         } else if (typePrintOperation == Token.STR_CONCAT) {  //concatenazione di stringhe per la printf con interi
             n.exOp1.accept(this);
             if (n.exOp1.getType() != Token.STRING)
@@ -438,7 +448,6 @@ public class MyFunCVisitor implements Visitor {
     }
 
     public Object visit(OutparOp n) throws Exception {
-        printer.print("&");
         n.id.accept(this);
         n.addRetType(n.id.getType());
         return null;
@@ -467,7 +476,8 @@ public class MyFunCVisitor implements Visitor {
                         s += MyFunC.opConverter(typePrintOperation); //aggiungo l'operatore
                 }
             }
-            printParameter.add(s);
+            if (!printParameter.contains(s))
+                printParameter.add(s);
         }
         for (int i = 0; i < printParameter.size(); i++) {
             printer.print(printParameter.get(i));
@@ -476,11 +486,15 @@ public class MyFunCVisitor implements Visitor {
         }
     }
 
-
     public void print_starting_fun() {
         printer.print("char* convert (int n) {\n" +
                 "    char* to_ret = (char *) malloc (" + STRING_SIZE + ");\n" +
                 "    sprintf(to_ret,\"%d\",n);\n" +
+                "    return to_ret;\n" +
+                "}\n");
+        printer.print("char* convertF (float n) {\n" +
+                "    char* to_ret = (char *) malloc (" + STRING_SIZE + ");\n" +
+                "    sprintf(to_ret,\"%f\",n);\n" +
                 "    return to_ret;\n" +
                 "}\n");
         printer.print("char* convertS (char * s) {\n" +
