@@ -56,7 +56,7 @@ deploy:jdk17:
   stage: deploy
   script:
     - 'mvn $MAVEN_CLI_OPTS clean'
-    - 'mvn $MAVEN_CLI_OPTS compile'
+    - 'mvn $MAVEN_CLI_OPTS compile -e'
     - 'chmod +x ./runtests.sh'
     - './runtests.sh'
   only:

@@ -27,6 +27,7 @@ public class Calculator {
         try {
             BufferedReader in = new BufferedReader(new FileReader(inputPath.toString()));
             Lexer lexer = new Lexer(in);
+
             Symbol sym;
             MyFunparser parser = new MyFunparser(lexer);
             sym = parser.parse();
