@@ -3,13 +3,11 @@ import Visitor.MyFunCVisitor;
 import Visitor.NodeVisitor;
 import Visitor.SemanticVisitor;
 import java_cup.runtime.Symbol;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
 
 public class Calculator {
     public static void main(String[] args) throws Exception {
