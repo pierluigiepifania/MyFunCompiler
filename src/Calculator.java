@@ -32,7 +32,6 @@ public class Calculator {
             NodeVisitor v = new NodeVisitor("Visitor");
             root.accept(v);
             v.flush();
-
             SemanticVisitor semanticVisitor = new SemanticVisitor();
             root.accept(semanticVisitor);
 
