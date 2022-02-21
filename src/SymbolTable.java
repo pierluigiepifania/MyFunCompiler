@@ -1,5 +1,3 @@
-package Tester;
-
 import java.util.Hashtable;
 import java_cup.runtime.Symbol;
 
