@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Calculator" type="Application" factoryName="Application">
-    <option name="MAIN_CLASS_NAME" value="Tester.Calculator" />
+    <option name="MAIN_CLASS_NAME" value="main.java.Calculator" />
     <module name="epifania_es5_scg" />
     <option name="PROGRAM_PARAMETERS" value="tests/valid1/valid1.txt" />
     <method v="2">

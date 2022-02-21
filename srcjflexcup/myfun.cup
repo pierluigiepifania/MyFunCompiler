@@ -1,12 +1,12 @@
 import java_cup.runtime.*;
 import java.util.*;
-import Node.*;
-import Node.ExpressionOp.*;
-import Node.StatementOp.*;
+import main.java.Node.*;
+import main.java.Node.StatementOp.*;
+import main.java.Node.ExpressionOp.*;
 
 parser code{:
 	Lexer lexer;
-	public MyFunparser(Lexer lexer){
+	public main.java.main.java.MyFunparser(Lexer lexer){
 	    super(lexer);
 	    this.lexer = lexer;
     }
