@@ -19,7 +19,7 @@ do
 	echo "" >> $1.report.txt
 	echo "" >> $1.report.txt
 	echo Test name: $TESTDIR >> $1.report.txt
-	echo mvn --batch-mode -q exec:java -Dexec.args="$TESTFILE" >> $1.report.txt
+	echo mvn --batch-mode -q exec:java -Dexec.args="$TESTFILE" >> $1.report.txt -e
 	mvn --batch-mode -q exec:java -Dexec.args="$TESTFILE" >> $1.report.txt 2>&1
 
 	if [ -s "$OUTPUTDIR/$TESTNAME.c" ]; then
