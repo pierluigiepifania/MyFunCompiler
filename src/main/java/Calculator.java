@@ -1,10 +1,8 @@
-package main.java;
-
-import main.java.Node.*;
+import Node.ProgramOp;
+import Visitor.MyFunCVisitor;
+import Visitor.NodeVisitor;
+import Visitor.SemanticVisitor;
 import java_cup.runtime.Symbol;
-import main.java.Visitor.MyFunCVisitor;
-import main.java.Visitor.NodeVisitor;
-import main.java.Visitor.SemanticVisitor;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -28,7 +26,6 @@ public class Calculator {
         try {
             BufferedReader in = new BufferedReader(new FileReader(inputPath.toString()));
             Lexer lexer = new Lexer(in);
-
             Symbol sym;
             MyFunparser parser = new MyFunparser(lexer);
             sym = parser.parse();
@@ -49,5 +46,5 @@ public class Calculator {
 }
 
 //C:\jflex-1.8.2\bin\jflex -d src srcjflexcup\Lexer.flex
-//java -jar C:\CUP\java-cup-11b.jar -parser main.java.main.java.main.java.main.java.MyFunparser -symbols Token -destdir src srcjflexcup/myfun.cup
-//NOTA: In myfunparser per NUMBER_INT in expr: Integer.parseInt((String)((java_cup.runtime.Symbol) CUP$main.java.main.java.main.java.main.java.MyFunparser$stack.peek()).value);
+//java -jar C:\CUP\java-cup-11b.jar -parser main.java.main.java.main.java.MyFunparser -symbols Token -destdir src srcjflexcup/myfun.cup
+//NOTA: In myfunparser per NUMBER_INT in expr: Integer.parseInt((String)((java_cup.runtime.Symbol) CUP$main.java.main.java.main.java.MyFunparser$stack.peek()).value);

@@ -1,6 +1,7 @@
-package main.java;
 
 import java.util.Hashtable;
+
+import SymbleTable.Token;
 import java_cup.runtime.Symbol;
 
 public class SymbolTable {
