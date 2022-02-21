@@ -49,6 +49,5 @@ public class Calculator {
 }
 
 //C:\jflex-1.8.2\bin\jflex -d src srcjflexcup\Lexer.flex
-//java -jar C:\CUP\java-cup-11b.jar -parser main.java.main.java.main.java.MyFunparser -symbols Token -destdir src srcjflexcup/myfun.cup
-//NOTA: In myfunparser per NUMBER_INT in expr: Integer.parseInt((String)((java_cup.runtime.Symbol) CUP$main.java.main.java.main.java.MyFunparser$stack.peek()).value);
-//NOTA: In myfunparser per NUMBER_INT in stat: Integer.parseInt((String)((java_cup.runtime.Symbol) CUP$main.java.main.java.main.java.MyFunparser$stack.peek()).value);
+//java -jar C:\CUP\java-cup-11b.jar -parser main.java.main.java.main.java.main.java.MyFunparser -symbols Token -destdir src srcjflexcup/myfun.cup
+//NOTA: In myfunparser per NUMBER_INT in expr: Integer.parseInt((String)((java_cup.runtime.Symbol) CUP$main.java.main.java.main.java.main.java.MyFunparser$stack.peek()).value);

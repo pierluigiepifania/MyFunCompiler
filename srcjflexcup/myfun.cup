@@ -6,7 +6,7 @@ import main.java.Node.ExpressionOp.*;
 
 parser code{:
 	Lexer lexer;
-	public main.java.main.java.main.java.MyFunparser(Lexer lexer){
+	public main.java.main.java.main.java.main.java.MyFunparser(Lexer lexer){
 	    super(lexer);
 	    this.lexer = lexer;
     }
