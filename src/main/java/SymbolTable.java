@@ -8,6 +8,7 @@ public class SymbolTable {
     private static Hashtable<Integer, String> symTable = new Hashtable<Integer, String>();
     private static int counter = 1;
 
+
     public static int addIdentifiers(String lessema){
         int toReturn = 0;
         if (!symTable.containsValue(lessema)){
