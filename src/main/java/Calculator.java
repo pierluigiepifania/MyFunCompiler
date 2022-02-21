@@ -20,7 +20,7 @@ public class Calculator {
         String tmp = coutdir + cFileName.toString();
         Files.createDirectories(Paths.get(coutdir));
 
-        System.out.println("Avvio calcolatrice in corso... \n");
+        System.out.println("Avvio calcolatrice in corso ... \n");
         try {
             BufferedReader in = new BufferedReader(new FileReader(inputPath.toString()));
             Lexer lexer = new Lexer(in);
