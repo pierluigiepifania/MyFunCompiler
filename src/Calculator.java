@@ -29,7 +29,6 @@ public class Calculator {
             MyFunparser parser = new MyFunparser(lexer);
             sym = parser.parse();
             ProgramOp root = (ProgramOp) sym.value;
-
             NodeVisitor v = new NodeVisitor("Visitor");
             root.accept(v);
             v.flush();
