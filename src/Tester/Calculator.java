@@ -36,7 +36,6 @@ public class Calculator {
             v.flush();
             SemanticVisitor semanticVisitor = new SemanticVisitor();
             root.accept(semanticVisitor);
-
             MyFunCVisitor toCVisitor = new MyFunCVisitor(tmp);
             root.accept(toCVisitor);
             toCVisitor.flush();
