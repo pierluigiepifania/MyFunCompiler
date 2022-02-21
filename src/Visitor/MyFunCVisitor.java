@@ -352,7 +352,6 @@ public class MyFunCVisitor implements Visitor {
             printer.print(" :" + MyFunC.getPlaceholder(n.exOp.getType()));
         }
         addQuotes();
-        System.out.println(printParameter.size());
         if (!printParameter.isEmpty()) {  //aggiungo i parametri alla printf
             addComma();
             printWriteParam();
