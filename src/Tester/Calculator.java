@@ -39,7 +39,6 @@ public class Calculator {
             MyFunCVisitor toCVisitor = new MyFunCVisitor(tmp);
             root.accept(toCVisitor);
             toCVisitor.flush();
-
         } catch (Exception e) {
             e.printStackTrace();
         }
