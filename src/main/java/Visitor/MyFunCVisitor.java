@@ -168,6 +168,7 @@ public class MyFunCVisitor implements Visitor {
         printer.print(MyFunC.typeConverter(n.type));
         if (n.inOut == 1) {   //controllo se è un outpar, gestiti tramite puntatori a cui aggiungo l'operatore *
             pointer.add(n.id.value);
+            printer.print("*");
         }
         n.id.accept(this);
         return null;
@@ -446,6 +447,7 @@ public class MyFunCVisitor implements Visitor {
     }
 
     public Object visit(OutparOp n) throws Exception {
+        printer.print("&");
         n.id.accept(this);
         n.addRetType(n.id.getType());
         return null;
