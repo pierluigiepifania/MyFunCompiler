@@ -32,16 +32,6 @@ sommac
 
 <ID>
 
-size
-
-</ID>
-
-</ID>
-
-<ID>
-
-<ID>
-
 b
 
 </ID>
@@ -847,16 +837,6 @@ ans
 </BodyNode>
 
 </WhileNode>
-
-<WriteNode>
-
-<ID>
-
-ans
-
-</ID>
-
-</WriteNode>
 
 <WriteNode>
 
