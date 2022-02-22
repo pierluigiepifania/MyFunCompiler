@@ -64,7 +64,7 @@ public class SemanticVisitor implements Visitor {
     public Object visit(Identifier n) throws Exception {
         Symbol s = stack.lookup(n.value);
         if (s == null)
-            throw new Exception("Identifier not declare");
+            throw new Exception("Identifier "+n.value+" not declared");
         n.typeList = s.typeList;
         return null;
     }
@@ -251,7 +251,7 @@ public class SemanticVisitor implements Visitor {
         n.isFunction = true;
         Symbol s = stack.lookup(n.id.value, 1);
         if (s == null)
-            throw new Exception("Function not declared");
+            throw new Exception("Function "+n.id.value+" not declared");
         n.id.accept(this);
         List<Integer> types = new LinkedList<>();
         List<Integer> outpar = new LinkedList<>();
