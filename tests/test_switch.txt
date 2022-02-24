@@ -1,0 +1,37 @@
+integer i;
+var a := 1, b:=2;
+
+main  #* test funzionante #
+switch i
+    1 : a:= a+1; stop;
+    2 : a:= a+1; stop;
+    3 : a:= a+1; stop;
+end switch;
+
+#* Type error
+switch i
+    1 : a:= a+1; stop;
+    2.3 : a:= a+1; stop;
+    3 : a:= a+1; stop;
+end switch;
+#
+
+#* Syntax error
+switch i
+    1 : a:= a+1; stop;
+    2.3 : a:= a+1; stop;
+    3 : a:= a+1; stop;
+    4 : a:= a+1; stop;
+end switch;
+#
+
+#* Syntax error
+main
+switch i = 3
+    1 : a:= a+1; stop;
+    2 : a:= a+1; stop;
+    3 : a:= a+1; stop;
+end switch;
+#
+
+end main;

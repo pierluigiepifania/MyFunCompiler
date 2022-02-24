@@ -6,29 +6,17 @@
 
 <ID>
 
-c
+i
 
 </ID>
-
-<NumberInt>
-
-1
-
-</NumberInt>
 
 </IdListNode>
 
 </VarDeclOp>
 
-<FunOpNode>
+<VarDeclOp>
 
-<ID>
-
-sommac
-
-</ID>
-
-<ID>
+<IdListNode>
 
 <ID>
 
@@ -36,215 +24,19 @@ b
 
 </ID>
 
-</ID>
-
-<ID>
-
-<ID>
-
-a
-
-</ID>
-
-</ID>
-
-<BodyNode>
-
-<VarDeclOp>
-
-<IdListNode>
-
-<ID>
-
-result
-
-</ID>
-
-</IdListNode>
-
-</VarDeclOp>
-
-<AssignNode>
-
-<ID>
-
-result
-
-</ID>
-
-<plus>
-
-<plus>
-
-<ID>
-
-a
-
-</ID>
-
-<ID>
-
-b
-
-</ID>
-
-</plus>
-
-<ID>
-
-c
-
-</ID>
-
-</plus>
-
-</AssignNode>
-
-<IfNode>
-
-<gt>
-
-<ID>
-
-result
-
-</ID>
-
 <NumberInt>
 
-100
+2
 
 </NumberInt>
 
-</gt>
-
-<BodyNode>
-
-<VarDeclOp>
-
-<IdListNode>
-
-<ID>
-
-valore
-
-</ID>
-
-<StringConst>
-
-'grande'
-
-</StringConst>
-
 </IdListNode>
 
-</VarDeclOp>
-
-<AssignNode>
-
-<ID>
-
-size
-
-</ID>
-
-<ID>
-
-valore
-
-</ID>
-
-</AssignNode>
-
-</BodyNode>
-
-<ElseNode>
-
-<BodyNode>
-
-<VarDeclOp>
-
 <IdListNode>
 
 <ID>
 
-valore
-
-</ID>
-
-<StringConst>
-
-'piccola'
-
-</StringConst>
-
-</IdListNode>
-
-</VarDeclOp>
-
-<AssignNode>
-
-<ID>
-
-size
-
-</ID>
-
-<ID>
-
-valore
-
-</ID>
-
-</AssignNode>
-
-</BodyNode>
-
-</ElseNode>
-
-</IfNode>
-
-<ExNode>
-
-<ID>
-
-result
-
-</ID>
-
-</ExNode>
-
-</BodyNode>
-
-</FunOpNode>
-
-<FunOpNode>
-
-<ID>
-
-stampa
-
-</ID>
-
-<ID>
-
-<ID>
-
-messaggio
-
-</ID>
-
-</ID>
-
-<BodyNode>
-
-<VarDeclOp>
-
-<IdListNode>
-
-<ID>
-
-i
+a
 
 </ID>
 
@@ -257,124 +49,34 @@ i
 </IdListNode>
 
 </VarDeclOp>
-
-<WhileNode>
-
-<le>
-
-<ID>
-
-i
-
-</ID>
-
-<NumberInt>
-
-4
-
-</NumberInt>
-
-</le>
-
-<BodyNode>
-
-<VarDeclOp>
-
-<IdListNode>
-
-<ID>
-
-incremento
-
-</ID>
-
-<NumberInt>
-
-1
-
-</NumberInt>
-
-</IdListNode>
-
-</VarDeclOp>
-
-<WriteNode>
-
-<StringConst>
-
-''
-
-</StringConst>
-
-</WriteNode>
-
-<AssignNode>
-
-<ID>
-
-i
-
-</ID>
-
-<plus>
-
-<ID>
-
-i
-
-</ID>
-
-<ID>
-
-incremento
-
-</ID>
-
-</plus>
-
-</AssignNode>
-
-</BodyNode>
-
-</WhileNode>
-
-<WriteNode>
-
-<ID>
-
-messaggio
-
-</ID>
-
-</WriteNode>
-
-</BodyNode>
-
-</FunOpNode>
 
 <MainNode>
 
 <BodyNode>
 
-<VarDeclOp>
-
-<IdListNode>
+<SwitchNode>
 
 <ID>
 
-b
+i
 
 </ID>
 
-<NumberReal>
+<NumberInt>
 
-2.2
+1
 
-</NumberReal>
+</NumberInt>
 
-</IdListNode>
+<AssignNode>
 
-<IdListNode>
+<ID>
+
+a
+
+</ID>
+
+<plus>
 
 <ID>
 
@@ -388,295 +90,25 @@ a
 
 </NumberInt>
 
-</IdListNode>
+</plus>
 
-</VarDeclOp>
+</AssignNode>
 
-<VarDeclOp>
+<NumberInt>
 
-<IdListNode>
+2
 
-<ID>
-
-taglia
-
-</ID>
-
-</IdListNode>
-
-</VarDeclOp>
-
-<VarDeclOp>
-
-<IdListNode>
-
-<ID>
-
-ans
-
-</ID>
-
-<StringConst>
-
-'no'
-
-</StringConst>
-
-</IdListNode>
-
-</VarDeclOp>
-
-<VarDeclOp>
-
-<IdListNode>
-
-<ID>
-
-risultato
-
-</ID>
-
-<callfunex>
-
-<CallNode>
-
-<ID>
-
-sommac
-
-</ID>
-
-<ID>
-
-a
-
-</ID>
-
-<ID>
-
-b
-
-</ID>
-
-<OutparNode>
-
-<ID>
-
-taglia
-
-</ID>
-
-</OutparNode>
-
-</CallNode>
-
-</callfunex>
-
-</IdListNode>
-
-</VarDeclOp>
-
-<CallNode>
-
-<ID>
-
-stampa
-
-</ID>
-
-<strconcat>
-
-<strconcat>
-
-<strconcat>
-
-<strconcat>
-
-<strconcat>
-
-<strconcat>
-
-<strconcat>
-
-<StringConst>
-
-'la somma di '
-
-</StringConst>
-
-<ID>
-
-a
-
-</ID>
-
-</strconcat>
-
-<StringConst>
-
-' e '
-
-</StringConst>
-
-</strconcat>
-
-<ID>
-
-b
-
-</ID>
-
-</strconcat>
-
-<StringConst>
-
-' incrementata di '
-
-</StringConst>
-
-</strconcat>
-
-<ID>
-
-c
-
-</ID>
-
-</strconcat>
-
-<StringConst>
-
-' è '
-
-</StringConst>
-
-</strconcat>
-
-<ID>
-
-taglia
-
-</ID>
-
-</strconcat>
-
-</CallNode>
-
-<CallNode>
-
-<ID>
-
-stampa
-
-</ID>
-
-<strconcat>
-
-<StringConst>
-
-'ed è pari a '
-
-</StringConst>
-
-<ID>
-
-risultato
-
-</ID>
-
-</strconcat>
-
-</CallNode>
-
-<WriteNode>
-
-<StringConst>
-
-'vuoi continuare? (si/no)'
-
-</StringConst>
-
-</WriteNode>
-
-<ReadNode>
-
-<ID>
-
-ans
-
-</ID>
-
-</ReadNode>
-
-<WhileNode>
-
-<eq>
-
-<ID>
-
-ans
-
-</ID>
-
-<StringConst>
-
-'si'
-
-</StringConst>
-
-</eq>
-
-<BodyNode>
-
-<ReadNode>
-
-<ID>
-
-a
-
-</ID>
-
-<StringConst>
-
-'inserisci un intero:'
-
-</StringConst>
-
-</ReadNode>
-
-<ReadNode>
-
-<ID>
-
-b
-
-</ID>
-
-<StringConst>
-
-'inserisci un reale:'
-
-</StringConst>
-
-</ReadNode>
+</NumberInt>
 
 <AssignNode>
 
 <ID>
 
-risultato
+a
 
 </ID>
 
-<callfunex>
-
-<CallNode>
-
-<ID>
-
-sommac
-
-</ID>
+<plus>
 
 <ID>
 
@@ -684,55 +116,23 @@ a
 
 </ID>
 
-<ID>
+<NumberInt>
 
-b
+1
 
-</ID>
+</NumberInt>
 
-<OutparNode>
-
-<ID>
-
-taglia
-
-</ID>
-
-</OutparNode>
-
-</CallNode>
-
-</callfunex>
+</plus>
 
 </AssignNode>
 
-<CallNode>
+<NumberInt>
 
-<ID>
+3
 
-stampa
+</NumberInt>
 
-</ID>
-
-<strconcat>
-
-<strconcat>
-
-<strconcat>
-
-<strconcat>
-
-<strconcat>
-
-<strconcat>
-
-<strconcat>
-
-<StringConst>
-
-'la somma di '
-
-</StringConst>
+<AssignNode>
 
 <ID>
 
@@ -740,123 +140,25 @@ a
 
 </ID>
 
-</strconcat>
-
-<StringConst>
-
-' e '
-
-</StringConst>
-
-</strconcat>
+<plus>
 
 <ID>
 
-b
+a
 
 </ID>
 
-</strconcat>
+<NumberInt>
 
-<StringConst>
+1
 
-' incrementata di '
+</NumberInt>
 
-</StringConst>
+</plus>
 
-</strconcat>
+</AssignNode>
 
-<ID>
-
-c
-
-</ID>
-
-</strconcat>
-
-<StringConst>
-
-' è '
-
-</StringConst>
-
-</strconcat>
-
-<ID>
-
-taglia
-
-</ID>
-
-</strconcat>
-
-</CallNode>
-
-<CallNode>
-
-<ID>
-
-stampa
-
-</ID>
-
-<strconcat>
-
-<StringConst>
-
-' ed è pari a '
-
-</StringConst>
-
-<ID>
-
-risultato
-
-</ID>
-
-</strconcat>
-
-</CallNode>
-
-<ReadNode>
-
-<ID>
-
-ans
-
-</ID>
-
-<StringConst>
-
-'vuoi continuare? (si/no):\t'
-
-</StringConst>
-
-</ReadNode>
-
-</BodyNode>
-
-</WhileNode>
-
-<WriteNode>
-
-<StringConst>
-
-''
-
-</StringConst>
-
-</WriteNode>
-
-<WriteNode>
-
-<StringConst>
-
-'ciao'
-
-</StringConst>
-
-</WriteNode>
+</SwitchNode>
 
 </BodyNode>
 

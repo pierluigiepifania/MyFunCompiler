@@ -91,6 +91,8 @@ str_concat = "&"
 	"end" { return symbol(Token.END, yytext()); }
 	"var" { return symbol(Token.VAR, yytext()); }
 	"out" { return symbol(Token.OUT, yytext()); }
+    "switch" { return symbol(Token.SWITCH, yytext()); }
+    "stop" { return symbol(Token.STOP, yytext()); }
 
 	/* literals */
 	{int_const} { return symbol(Token.NUMBER_INT, yytext()); }

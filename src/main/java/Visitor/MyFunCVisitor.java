@@ -200,6 +200,37 @@ public class MyFunCVisitor implements Visitor {
         return null;
     }
 
+    public Object visit(SwitchOp n) throws Exception {
+        printer.print("switch ");
+        addLpar();
+        n.i.accept(this);
+        addRpar();
+        addGLpar();
+        printer.print("case ");
+        n.e.accept(this);
+        printer.println(":");
+        for (int i = n.el.size() -1; i>=0; i--) {
+            n.el.get(i).accept(this);
+        }
+        printer.println(" break;");
+        printer.print("case ");
+        n.e1.accept(this);
+        printer.println(":");
+        for (int i = n.el1.size() -1; i>=0; i--) {
+            n.el2.get(i).accept(this);
+        }
+        printer.println(" break;");
+        printer.print("case ");
+        n.e2.accept(this);
+        printer.println(":");
+        for (int i = n.el2.size() -1; i>=0; i--) {
+            n.el2.get(i).accept(this);
+        }
+        printer.println(" break;");
+        addGRpar();
+        return null;
+    }
+
     public Object visit(IfStatOp n) throws Exception {
         printer.print("if");
         addLpar();

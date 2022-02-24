@@ -8,6 +8,7 @@ public class BodyOp extends Node {
     public String op;
     public List<VarDeclOp> varDeclOp;
     public List<StatementOp> stat;
+    public ExpressionOp e;
 
     public BodyOp(String op, List<VarDeclOp> varDeclOp, List<StatementOp> stat) {
         super(op);

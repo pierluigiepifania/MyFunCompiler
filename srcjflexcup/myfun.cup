@@ -7,7 +7,7 @@ import Node.ExpressionOp.*;
 
 parser code{:
 	Lexer lexer;
-	public main.java.main.java.main.java.MyFunparser(Lexer lexer){
+	public MyFunparser(Lexer lexer){
 	    super(lexer);
 	    this.lexer = lexer;
     }
@@ -23,6 +23,7 @@ parser code{:
  terminal NULL, READ, WRITE, WRITELN, WRITEB, WRITET;
  terminal String STRING_CONST, ID;
  terminal Float NUMBER_REAL;
+ terminal STOP, SWITCH;
 
  /* Non-terminals */
  non terminal ProgramOp program;
@@ -50,6 +51,7 @@ parser code{:
  non terminal CallFunOp callfun;
  non terminal List<ExpressionOp> exprlist;
  non terminal ExpressionOp expr;
+ non terminal SwitchOp switch;
 
  /* Precedences */
 precedence nonassoc ELSE;
@@ -101,7 +103,9 @@ stat ::= ifstat:ifs SEMI              {: RESULT = ifs; :}
 	    | writestat:wrs SEMI          {: RESULT = wrs; :}
 	    | assignstat:as SEMI          {: RESULT = as; :}
 	    | callfun:cfs SEMI            {: RESULT = cfs; :}
+	    | switch:sw SEMI              {: RESULT = sw; :}
 	    | RETURN expr:es SEMI         {: RESULT = new ReturnOp("ExNode",es); :};
+switch ::= SWITCH ID:i  expr:e COLON statlist:sl STOP SEMI expr:e1 COLON statlist:sl1 STOP SEMI expr:e2 COLON statlist:sl2 STOP SEMI END SWITCH {: RESULT = new SwitchOp("SwitchNode", new Identifier("ID", i), e, sl, e1, sl1, e2, sl2);:};
 ifstat ::= IF expr:e THEN vardecllist:v1 statlist:s1 else:el END IF    {: RESULT = new IfStatOp("IfNode",e, new BodyOp ("BodyNode", v1, s1), el); :};
 else ::= /* empty */    {: RESULT = null; :}
         | ELSE vardecllist:v1 statlist:s1     {: RESULT = new ElseStatOp("ElseNode", new BodyOp ("BodyNode", v1, s1)); :};
@@ -117,8 +121,7 @@ callfun ::= ID:i LPAR exprlist:e RPAR       {: RESULT = new CallFunOp("CallNode"
 	        | ID:i LPAR RPAR           {:  RESULT = new CallFunOp("CallNode", new Identifier ("ID", i)); :};
 exprlist ::= expr:e         {: List<ExpressionOp> el = new LinkedList<ExpressionOp>(); el.add(e); RESULT = el;  :}
 	        | expr:e COMMA exprlist:els      {: els.add(e); RESULT = els; :}
-	        | OUTPAR ID:i                    {: List<ExpressionOp> el = new LinkedList<ExpressionOp>(); OutparOp e = new OutparOp("OutparNode", new Identifier("ID", i)); el.add(e); RESULT = el; :}
-	        | OUTPAR ID:i COMMA exprlist:els     {: OutparOp e = new OutparOp("OutparNode", new Identifier("ID", i)); els.add(e); RESULT = els; :};
+	        | OUTPAR ID:i                    {: List<ExpressionOp> el = new LinkedList<ExpressionOp>(); OutparOp e = new OutparOp("OutparNode", new Identifier("ID", i)); el.add(e); RESULT = el; :};
 expr ::= TRUE:b   {: RESULT = new BooleanEx("BoolConst", true); :}
 	| FALSE:b     {: RESULT = new BooleanEx("BoolConst", false); :}
 	| NUMBER_INT:ni    {: RESULT = new IntegerEx("NumberInt", ni);  :}

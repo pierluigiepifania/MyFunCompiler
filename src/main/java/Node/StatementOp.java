@@ -3,6 +3,8 @@ package Node;
 import Node.ExpressionOp.*;
 import Visitor.Visitable;
 import Visitor.Visitor;
+
+import java.beans.Expression;
 import java.util.List;
 
 public abstract class StatementOp extends Node implements Visitable {
@@ -101,6 +103,33 @@ public abstract class StatementOp extends Node implements Visitable {
             this.exOp = exOp;
             this.bodyOp = bodyOp;
             this.el = el;
+        }
+
+        public Object accept(Visitor v) throws Exception {
+            return v.visit(this);
+        }
+    }
+
+    public static class SwitchOp extends StatementOp {
+
+        public String op;
+        public Identifier i;
+        public ExpressionOp e;
+        public List<StatementOp> el;
+        public ExpressionOp e1;
+        public List<StatementOp> el1;
+        public ExpressionOp e2;
+        public List<StatementOp> el2;
+
+        public SwitchOp(String op, Identifier i, ExpressionOp e, List<StatementOp>  el,ExpressionOp e1, List<StatementOp>  el1, ExpressionOp e2, List<StatementOp>  el2) {
+            super(op);
+            this.i =i;
+            this.e = e;
+            this.el = el;
+            this.e1 = e1;
+            this.el1 = el1;
+            this.e2 = e2;
+            this.el2 = el2;
         }
 
         public Object accept(Visitor v) throws Exception {

@@ -186,6 +186,27 @@ public class SemanticVisitor implements Visitor {
         return null;
     }
 
+    public Object visit(SwitchOp n) throws Exception {
+        n.i.accept(this);
+        n.e.accept(this);
+        for (int i = n.el.size() -1; i>=0; i--) {
+            n.el.get(i).accept(this);
+        }
+        n.e1.accept(this);
+        for (int i = n.el.size() -1; i>=0; i--) {
+            n.el1.get(i).accept(this);
+        }
+        n.e2.accept(this);
+        for (int i = n.el.size() -1; i>=0; i--) {
+            n.el2.get(i).accept(this);
+        }
+        if(n.i.getType()!= n.e.getType() || n.i.getType()!= n.e1.getType() || n.i.getType()!= n.e2.getType()) {
+            throw new Exception("Switch type error");
+        }
+        return null;
+
+    }
+
     public Object visit(ElseStatOp n) throws Exception {
         if (n.bodyOp != null)
             n.bodyOp.accept(this);

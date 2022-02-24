@@ -212,6 +212,25 @@ public class NodeVisitor implements Visitor {
         return null;
     }
 
+    public Object visit(SwitchOp n) throws Exception {
+        p.println("<" + n.getOp() + ">\n");
+        n.i.accept(this);
+        n.e.accept(this);
+        for (int i = n.el.size() -1; i>=0; i--) {
+            n.el.get(i).accept(this);
+        }
+        n.e1.accept(this);
+        for (int i = n.el1.size() -1; i>=0; i--) {
+            n.el.get(i).accept(this);
+        }
+        n.e2.accept(this);
+        for (int i = n.el2.size() -1; i>=0; i--) {
+            n.el.get(i).accept(this);
+        }
+        p.println("</" + n.getOp() + ">\n");
+        return null;
+    }
+
     public Object visit(ElseStatOp n) throws Exception {
         p.println("<" + n.getOp() + ">\n");
         if (n.bodyOp != null)

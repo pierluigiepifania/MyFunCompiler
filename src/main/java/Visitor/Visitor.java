@@ -27,6 +27,7 @@ public interface Visitor {
    public Object visit (AssignOp n)throws Exception;
    public Object visit (WhileOp n)throws Exception;
    public Object visit (IfStatOp n)throws Exception;
+   public Object visit (SwitchOp n)throws Exception;
    public Object visit (ElseStatOp n)throws Exception;
    public Object visit (ReturnOp n)throws Exception;
    public Object visit (CallFunOp n)throws Exception;

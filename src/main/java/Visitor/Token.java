@@ -8,6 +8,7 @@ public class Token {
   /* terminals */
   public static final int POW = 41;
   public static final int GE = 35;
+  public static final int CASE = 52;
   public static final int INTEGER = 14;
   public static final int SEMI = 6;
   public static final int OUT = 4;
@@ -39,11 +40,13 @@ public class Token {
   public static final int NULL = 43;
   public static final int DIVINT = 42;
   public static final int EQ = 38;
+  public static final int SWITCH = 54;
   public static final int REAL = 13;
   public static final int OUTPAR = 25;
   public static final int TIMES = 32;
   public static final int COLON = 29;
   public static final int ELSE = 17;
+  public static final int STOP = 53;
   public static final int READ = 44;
   public static final int WHILE = 18;
   public static final int STR_CONCAT = 26;
@@ -59,58 +62,61 @@ public class Token {
   public static final int VAR = 5;
   public static final int NUMBER_INT = 10;
   public static final String[] terminalNames = new String[] {
-  "EOF",
-  "error",
-  "MAIN",
-  "RETURN",
-  "OUT",
-  "VAR",
-  "SEMI",
-  "COMMA",
-  "ASSIGN",
-  "FUN",
-  "NUMBER_INT",
-  "STRING",
-  "BOOL",
-  "REAL",
-  "INTEGER",
-  "IF",
-  "THEN",
-  "ELSE",
-  "WHILE",
-  "NOT",
-  "END",
-  "LOOP",
-  "TRUE",
-  "FALSE",
-  "NE",
-  "OUTPAR",
-  "STR_CONCAT",
-  "LPAR",
-  "RPAR",
-  "COLON",
-  "PLUS",
-  "MINUS",
-  "TIMES",
-  "DIV",
-  "GT",
-  "GE",
-  "LT",
-  "LE",
-  "EQ",
-  "AND",
-  "OR",
-  "POW",
-  "DIVINT",
-  "NULL",
-  "READ",
-  "WRITE",
-  "WRITELN",
-  "WRITEB",
-  "WRITET",
-  "STRING_CONST",
-  "ID",
-  "NUMBER_REAL"
+          "EOF",
+          "error",
+          "MAIN",
+          "RETURN",
+          "OUT",
+          "VAR",
+          "SEMI",
+          "COMMA",
+          "ASSIGN",
+          "FUN",
+          "NUMBER_INT",
+          "STRING",
+          "BOOL",
+          "REAL",
+          "INTEGER",
+          "IF",
+          "THEN",
+          "ELSE",
+          "WHILE",
+          "NOT",
+          "END",
+          "LOOP",
+          "TRUE",
+          "FALSE",
+          "NE",
+          "OUTPAR",
+          "STR_CONCAT",
+          "LPAR",
+          "RPAR",
+          "COLON",
+          "PLUS",
+          "MINUS",
+          "TIMES",
+          "DIV",
+          "GT",
+          "GE",
+          "LT",
+          "LE",
+          "EQ",
+          "AND",
+          "OR",
+          "POW",
+          "DIVINT",
+          "NULL",
+          "READ",
+          "WRITE",
+          "WRITELN",
+          "WRITEB",
+          "WRITET",
+          "STRING_CONST",
+          "ID",
+          "NUMBER_REAL",
+          "CASE",
+          "STOP",
+          "SWITCH"
   };
 }
 
