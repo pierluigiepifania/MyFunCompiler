@@ -1,3 +1,2 @@
-1.8 version 1.8.0_282
-SDK default (8 - Lambdas, type annotations etc.)
-
+In questo progetto è stato realizzato un compilatore per il linguaggio MyFun. 
+Dato un file scritto nel linguaggio MyFun, esso si occuperà di effettuare tutte le analisi e valutazioni necessarie al fine di comprenderlo e realizzare un file eseguibile in codice C.
